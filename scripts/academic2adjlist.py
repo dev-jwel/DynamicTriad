@@ -34,7 +34,7 @@ else:
     infn = sys.argv[1]
     begin = end = None
 
-data = cPickle.load(open(infn, 'r'))
+data = cPickle.load(open(infn, 'rb'))
 
 graphs = sorted(data['graphs'].items(), key=lambda x: int(x[0]))
 outidx = 0
