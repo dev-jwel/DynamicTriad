@@ -21,7 +21,7 @@ class Timeline(utils.Archivable):
         if tmunit < 0 or tmunit % self.stepstride != 0:
             raise RuntimeError("Invalid step time {}({}), with len={}, stride={}"
                                .format(tmunit, tm, self.stepsize, self.stepstride))
-        return tmunit / self.stepstride
+        return tmunit // self.stepstride
 
     def step2time(self, step):
         tmunit = step * self.stepstride
