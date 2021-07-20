@@ -3,12 +3,18 @@ from __future__ import absolute_import
 
 import numpy as np
 import random
-from itertools import izip
 from . import sampler
 from core import gconfig as gconf
 from core import utils
 from core.algorithm.embutils import WithData
 
+try:
+    from future_builtins import zip
+except ImportError: # not 2.6+ or is 3.x
+    try:
+        from itertools import izip as zip # < 2.5 or 3.x
+    except ImportError:
+        pass
 
 class Sampler(sampler.Sampler, WithData):
     def __init__(self, **kwargs):
@@ -167,7 +173,7 @@ class Sampler(sampler.Sampler, WithData):
         for i, s in enumerate(self._pos + self._neg):
             assert len(s) == self.sample_size(), "{}-th: {} {}".format(i, len(s), self.sample_size())
         isamp = [utils.islice_sample(s, chunk=batchsize) for s in self._pos + self._neg]
-        for s in izip(*isamp):
+        for s in zip(*isamp):
             yield s
 
     def sample_size(self):
