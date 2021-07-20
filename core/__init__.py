@@ -120,6 +120,8 @@ def main():
         start_time = time.time()
         scores = []
         
+        _ = tm.pretrain
+        
         init = tf.global_variables_initializer()
         sess = tf.Session()
         sess.run(init)
