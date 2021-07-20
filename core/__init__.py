@@ -63,9 +63,9 @@ def main():
             return
         cachefn += '.cache' 
         if isfile(cachefn + '.args'):
-            args = cPickle.load(open(cachefn + '.args', 'r'))
+            args = cPickle.load(open(cachefn + '.args', 'rb'))
             try:
-                ds.load_cache(args, lambda: cPickle.load(open(cachefn, 'r')))
+                ds.load_cache(args, lambda: cPickle.load(open(cachefn, 'rb')))
                 print("Data loaded from cache file {}".format(cachefn))
                 return
             except (ValueError, EOFError) as e:
@@ -74,8 +74,8 @@ def main():
         # update cache
         print("updating cache file for prefix {}".format(cachefn))
         ar, args = ds.cache()
-        cPickle.dump(args, open(cachefn + '.args', 'w'))
-        cPickle.dump(ar, open(cachefn, 'w'))
+        cPickle.dump(args, open(cachefn + '.args', 'wb'))
+        cPickle.dump(ar, open(cachefn, 'wb'))
         print("cache file {} updated".format(cachefn))
 
     def export(vertices, data, outdir):
