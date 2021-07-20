@@ -104,10 +104,6 @@ def main():
     edgecnt = [g.num_edges() for g in ds.gtgraphs]
     k_edgecnt = sum(edgecnt[:args.pretrain_size])
     print("{} edges in pretraining graphs".format(k_edgecnt))
-
-    init = tf.global_variables_initializer()
-    sess = tf.Session()
-    sess.run(init)
     
     if args.pretrain_size > 0:
         initstep = ds.time2step(args.starttime)
@@ -123,6 +119,11 @@ def main():
         # for early stopping
         start_time = time.time()
         scores = []
+        
+        init = tf.global_variables_initializer()
+        sess = tf.Session()
+        sess.run(init)
+        
         for i in range(args.niters):
             tm.pretrain_begin_iteration()
 
@@ -169,6 +170,8 @@ def main():
                 if max_val > 0 and i - max_idx > 5:
                     break
 
+        sess.close()
+                    
         print("best validation score at itr {}: {}".format(max_idx, max_val))
         print("{} seconds elapsed for pretraining".format(time.time() - start_time))
         #lastmodel = tm.save_model()  # for debug
@@ -181,5 +184,3 @@ def main():
     startstep = tm.dataset.time2step(args.starttime)
     for y in range(startstep + args.pretrain_size, startstep + args.nsteps):
         raise NotImplementedError()
-    
-    sess.close()
