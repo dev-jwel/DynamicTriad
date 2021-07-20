@@ -1,11 +1,19 @@
 from __future__ import print_function
 
-import graph_tool as gt
+import graph_tools as gt
 import itertools
 from collections import defaultdict
 import numpy as np
 import utils
-from itertools import izip
+
+try:
+    from future_builtins import zip
+except ImportError: # not 2.6+ or is 3.x
+    try:
+        from itertools import izip as zip # < 2.5 or 3.x
+    except ImportError:
+        pass
+
 
 __gtutils_debug = True
 
@@ -185,7 +193,7 @@ def load_mygraph(fn, directed=True, nodename=None, nametype='string', convert_to
             evertices = [v[v.find('@') + 1:] for v in arr[::2]]
         else:
             evertices = arr[::2]
-        return izip(evertices, arr[1::2])
+        return zip(evertices, arr[1::2])
 
     vid2elist = utils.KeyDefaultDict(lambda x: str2elist(elist[x]))
     return load_mygraph_core(vertices, vid2elist, directed=directed, nametype=nametype, weighttype='float',
