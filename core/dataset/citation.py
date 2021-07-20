@@ -1,5 +1,8 @@
 from __future__ import print_function
 
+from os import sys
+sys.path.append(path.dirname(path.abspath(__file__)))
+
 # import graphtool_utils as gtutils
 import numpy as np
 import re
