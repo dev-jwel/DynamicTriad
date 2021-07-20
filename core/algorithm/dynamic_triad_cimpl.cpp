@@ -5,7 +5,7 @@
 #include <boost/python.hpp>
 namespace py = boost::python;
 
-#include <Eigen/Core>
+#include <eigen3/Eigen/Core>
 namespace ei = Eigen;
 
 #include <map>
