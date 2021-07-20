@@ -154,9 +154,10 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         loss = lprox + self.flowargs['beta'][0] * lsmooth + self.flowargs['beta'][1] * ltriag
 
         opt = optimizers.get({'class_name': 'Adagrad', 'config': {'lr': self.lr}})
-        cstr = {embedding: constraints.get({'class_name': 'maxnorm', 'config': {'max_value': 1, 'axis': 2}}),
-                theta: constraints.get({'class_name': 'unitnorm', 'config': {'axis': 0}})}
-        upd = opt.get_updates([embedding, theta], cstr, loss)
+        #cstr = {embedding: constraints.get({'class_name': 'maxnorm', 'config': {'max_value': 1, 'axis': 2}}),
+        #        theta: constraints.get({'class_name': 'unitnorm', 'config': {'axis': 0}})}
+        #upd = opt.get_updates([embedding, theta], cstr, loss)
+        upd = opt.get_updates(loss, [embedding, theta])
         lf = K.function([data, weight, triag_int, triag_float], [loss], updates=upd)
         pf = K.function([pred_data], [pred])
         
