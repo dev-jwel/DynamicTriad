@@ -4,6 +4,7 @@ import warnings
 
 import keras.backend
 
+print('keras backend is ' + keras.backend.backend())
 if keras.backend.backend() == 'theano':
     from . import theano_patches
     for k, v in vars(theano_patches).items():
@@ -15,4 +16,4 @@ elif keras.backend.backend() == 'tensorflow':
         if callable(v):
             setattr(keras.backend, k, v)
 else:
-    warnings.warn("Unknown backend type: {}".format(keras.backend._BACKEND))
+    warnings.warn("Unknown backend type: {}".format(keras.backend.backend()))
