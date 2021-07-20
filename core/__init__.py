@@ -63,8 +63,8 @@ def main():
             return
         cachefn += '.cache' 
         if isfile(cachefn + '.args'):
-            u = cPickle.Unpickler(open(cachefn + '.args', 'rb'))
-            args = u.load()
+            with open(cachefn + '.args', 'rb') as f:
+                args = cPickle.load(f)
             try:
                 ds.load_cache(args, lambda: cPickle.load(open(cachefn, 'rb')))
                 print("Data loaded from cache file {}".format(cachefn))
@@ -75,8 +75,10 @@ def main():
         # update cache
         print("updating cache file for prefix {}".format(cachefn))
         ar, args = ds.cache()
-        cPickle.dump(args, open(cachefn + '.args', 'wb'))
-        cPickle.dump(ar, open(cachefn, 'wb'))
+        with open(cachefn + '.args', 'wb') as f:
+            cPickle.dump(args, f)
+        with open(cachefn, 'wb') as f:
+            cPickle.dump(ar, f)
         print("cache file {} updated".format(cachefn))
 
     def export(vertices, data, outdir):
