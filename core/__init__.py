@@ -63,7 +63,8 @@ def main():
             return
         cachefn += '.cache' 
         if isfile(cachefn + '.args'):
-            args = cPickle.load(open(cachefn + '.args', 'rb'))
+            u = cPickle.Unpickler(open(cachefn + '.args', 'rb'))
+            args = u.load()
             try:
                 ds.load_cache(args, lambda: cPickle.load(open(cachefn, 'rb')))
                 print("Data loaded from cache file {}".format(cachefn))
