@@ -27,20 +27,23 @@ ask() {
 echo "You may need to specify some environments before building"
 
 pylib=$(python -c "from distutils.sysconfig import get_config_var; print('{}/{}'.format(get_config_var('LIBDIR'), get_config_var('INSTSONAME')))")
-pylib=$(ask "PYTHON_LIBRARY?" $pylib)
+#pylib=$(ask "PYTHON_LIBRARY?" $pylib)
 export PYTHON_LIBRARY=$pylib
 
 pyinc=$(python -c "from distutils.sysconfig import get_config_var; print(get_config_var('INCLUDEPY'))")
-pyinc=$(ask "PYTHON_INCLUDE_DIR?" $pyinc)
+#pyinc=$(ask "PYTHON_INCLUDE_DIR?" $pyinc)
 export PYTHON_INCLUDE_DIR=$pyinc
 
-eigeninc=$(ask "EIGEN3_INCLUDE_DIR?" /usr/include)
+eigeninc="/usr/include"
+#eigeninc=$(ask "EIGEN3_INCLUDE_DIR?" /usr/include)
 export EIGEN3_INCLUDE_DIR=$eigeninc
 
-boostroot=$(ask "BOOST_ROOT?" "")
+bosstroot=""
+#boostroot=$(ask "BOOST_ROOT?" "")
 export BOOST_ROOT=$boostroot
 
-boost_pylib=$(ask "name for boost_python library? (useful when boost_python cannot be detected by cmake)" "boost_python")
+boost_pylib="boost_python"
+#boost_pylib=$(ask "name for boost_python library? (useful when boost_python cannot be detected by cmake)" "boost_python")
 export BOOST_PYTHON_LIBNAME=$boost_pylib
 
 echo building mygraph module ...
