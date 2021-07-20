@@ -65,15 +65,15 @@ if((NOT "$ENV{PYTHON_LIBRARY}" STREQUAL "") AND (NOT
     set(PYTHON_INCLUDE_DIR $ENV{PYTHON_INCLUDE_DIR})
 endif()
 
-set(Python_ADDITIONAL_VERSIONS 2.7)
-find_package(PythonLibs 2.7 REQUIRED)
+set(Python_ADDITIONAL_VERSIONS 3.7)
+find_package(PythonLibs 3.7 REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 link_directories(${PYTHON_LIBRARIES})
 target_link_libraries(dynamic_triad python2.7)
 #target_link_libraries(dynamic_triad_extfeat python2.7)
 
 # pythoninterp required by findnumpy
-find_package(PythonInterp 2.7 REQUIRED)
+find_package(PythonInterp 3.7 REQUIRED)
 find_package(NumPy 1.10 REQUIRED)
 if(NOT ${PYTHON_NUMPY_FOUND})
     message(FATAL_ERROR "Cannot find numpy headers")
@@ -102,7 +102,7 @@ if(Boost_FOUND)
           message(FATAL_ERROR "boost_python not detected by cmake, try setting
           environment variable $BOOST_PYTHON_LIBNAME for custom library name")
       endif()
-      set (Boost_LIBRARIES "${Boost_LIBRARIES}-l boost_python-2.7")
+      set (Boost_LIBRARIES "${Boost_LIBRARIES}-l boost_python-3.7")
   endif()
 ELSEIF(NOT Boost_FOUND)
   MESSAGE(FATAL_ERROR "Unable to find correct Boost version. Did you set BOOST_ROOT?")
