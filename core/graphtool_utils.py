@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-import graph_tools as gt
+import graph_tool as gt
 import itertools
 from collections import defaultdict
 import numpy as np
