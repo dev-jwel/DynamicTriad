@@ -4,12 +4,12 @@ import warnings
 
 import keras.backend
 
-if keras.backend._BACKEND == 'theano':
+if keras.backend.backend() == 'theano':
     from . import theano_patches
     for k, v in vars(theano_patches).items():
         if callable(v):
             setattr(keras.backend, k, v)
-elif keras.backend._BACKEND == 'tensorflow':
+elif keras.backend.backend() == 'tensorflow':
     from . import tensorflow_patches
     for k, v in vars(tensorflow_patches).items():
         if callable(v):
