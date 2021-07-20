@@ -1,6 +1,6 @@
 import keras.backend as K
 
-if K._BACKEND == 'tensorflow':
+if K.backend() == 'tensorflow':
     from tensorflow.python import debug as tfdbg
     sess = tfdbg.LocalCLIDebugWrapperSession(K.get_session())
     K.set_session(sess)
