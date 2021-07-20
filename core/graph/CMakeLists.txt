@@ -58,7 +58,7 @@ if(Boost_FOUND)
   set(Boost_USE_STATIC_LIBS OFF)
   set(Boost_USE_MULTITHREADED ON)
   set(Boost_USE_STATIC_RUNTIME OFF)
-  find_package(Boost 1.54.0 COMPONENTS python)
+  find_package(Boost 1.54.0 COMPONENTS python3.7)
   if(NOT Boost_FOUND)
       if(NOT "$ENV{BOOST_PYTHON_LIBNAME}" STREQUAL "")
           message("boost_python not detected by cmake, trying custom lib name
