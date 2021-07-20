@@ -130,7 +130,7 @@ class Sampler(sampler.Sampler, WithData):
     def make_pretrain_input(self, batch):
         pos, weight, neg = batch[:3]
         assert neg.shape[1] % 2 == 0
-        dupneg = neg.shape[1] / 2
+        dupneg = neg.shape[1] // 2
         data = []
         # TODO: by doing so, we always train samples from the same edge together, does this matter?
         for i in range(len(pos)):
