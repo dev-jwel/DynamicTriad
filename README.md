@@ -1,5 +1,6 @@
 # DynamicTriad
-This repo is fork from [here](https://github.com/luckiezhou/DynamicTriad)
+This repo is fork from [here](https://github.com/luckiezhou/DynamicTriad).
+
 This project implements the DynamicTriad algorithm proposed in [1], which is a node embedding algorithm for undirected dynamic graphs.
 
 ## Quick Links
