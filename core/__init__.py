@@ -13,6 +13,7 @@ def main():
     from os.path import isfile
     import dataset.dataset_utils as du
     import algorithm.embutils as eu
+    import tensorflow.compat.v1 as tf
 
     # random.seed(977)  # for reproducability
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -89,7 +90,7 @@ def main():
             for j in range(len(vertices)):
                 print("{} {}".format(vertices[j], ' '.join(["{:.3f}".format(d) for d in data[i][j]])), file=fh)
             fh.close()
-
+   
     TrainModel = load_trainmod(args.trainmod)
     Dataset = load_datamod(args.datasetmod)
 
@@ -104,6 +105,10 @@ def main():
     k_edgecnt = sum(edgecnt[:args.pretrain_size])
     print("{} edges in pretraining graphs".format(k_edgecnt))
 
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+    
     if args.pretrain_size > 0:
         initstep = ds.time2step(args.starttime)
         tm.pretrain_begin(initstep, initstep + args.pretrain_size)
@@ -176,3 +181,5 @@ def main():
     startstep = tm.dataset.time2step(args.starttime)
     for y in range(startstep + args.pretrain_size, startstep + args.nsteps):
         raise NotImplementedError()
+    
+    sess.close()
