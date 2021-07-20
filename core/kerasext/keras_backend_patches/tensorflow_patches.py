@@ -1,5 +1,5 @@
-import tensorflow as tf
-
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def gather_nd(param, indices):
     return tf.gather_nd(param, indices)
