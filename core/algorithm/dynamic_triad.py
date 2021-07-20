@@ -83,7 +83,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         triag_float = K.placeholder(ndim=2, dtype='float32')  # (batchsize, 3), [coef, w1, w2]
         pred_data = K.placeholder(ndim=2, dtype='int32')  # (batchsize, 2)  [timestep, nodeid]
 
-        if K._BACKEND == 'theano':
+        if K.backend() == 'theano':
             # (batchsize, nsize, d) => (batchsize, nsize)
             pred = embedding[pred_data[:, 0] - 1, pred_data[:, 1]][:, None, :] - embedding[pred_data[:, 0] - 1]
             pred = -K.sum(K.square(pred), axis=-1)  # the closer the more probable
@@ -121,7 +121,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         lsmooth = K.mean(lsmooth)
 
         # ltriag
-        if K._BACKEND == 'theano':
+        if K.backend() == 'theano':
             e1 = embedding[triag_int[:, 0], triag_int[:, 1]] - embedding[triag_int[:, 0], triag_int[:, 2]]  # (batchsize_t, d)
             e2 = embedding[triag_int[:, 0], triag_int[:, 1]] - embedding[triag_int[:, 0], triag_int[:, 3]]
             x = e1 * triag_float[:, 1, None] + e2 * triag_float[:, 2, None]
@@ -176,7 +176,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         data = K.placeholder(ndim=2, dtype='int32')  # (batchsize, 5), [k, from_pos, to_pos, from_neg, to_neg]
         weight = K.placeholder(ndim=1, dtype='float32')  # (batchsize, )
 
-        if K._BACKEND == 'theano':
+        if K.backend() == 'theano':
             # (batchsize, d) => (batchsize, )
             # data[:, 0] should be always 0, so we simply ignore it
             # note, when you want to use it, that according to data generation procedure, the actual data[:, 0] is not 0
