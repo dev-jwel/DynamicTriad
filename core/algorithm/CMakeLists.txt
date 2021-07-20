@@ -69,8 +69,8 @@ set(Python_ADDITIONAL_VERSIONS 3.7)
 find_package(PythonLibs 3.7 REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 link_directories(${PYTHON_LIBRARIES})
-target_link_libraries(dynamic_triad python3.7)
-#target_link_libraries(dynamic_triad_extfeat python3.7)
+target_link_libraries(dynamic_triad python3)
+#target_link_libraries(dynamic_triad_extfeat python3)
 
 # pythoninterp required by findnumpy
 find_package(PythonInterp 3.7 REQUIRED)
