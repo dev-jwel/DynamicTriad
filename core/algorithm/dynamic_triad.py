@@ -28,7 +28,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
     def __init__(self, ds, pretrain_size=10, embdim=16, beta=None,
                  lr=0.1, batchsize=None, sampling_args=None):
         if beta is None:
-            beta = [0.1, 0.1]
+            beta = [K.variable(0.1), K.variable(0.1)]
         if sampling_args is None:
             sampling_args = {}
 
