@@ -132,7 +132,7 @@ def main():
             for batidx, bat in enumerate(tm.batches(args.batchsize)):
                 inputs = tm.make_pretrain_input(bat)
                 sess.run(tf.global_variables_initializer())
-                l = tm.pretrain['lossfunc'](inputs)
+                l = sess.run(loss, feed_dict={inputs_placeholder[0]:inputs[0], inputs_placeholder[1]:inputs[1], inputs_placeholder[2]:inputs[2], inputs_placeholder[3]:inputs[3]}
                 if isinstance(l, (list, tuple)):
                     l = l[0]
                 epoch_loss += l
