@@ -13,6 +13,7 @@ def main():
     from os.path import isfile
     import dataset.dataset_utils as du
     import algorithm.embutils as eu
+    import keras.backend as K
     import tensorflow.compat.v1 as tf
 
     # random.seed(977)  # for reproducability
@@ -38,7 +39,7 @@ def main():
     parser.add_argument('--validation', type=str, default='link_reconstruction',
                         help=', '.join(list(sorted(set(du.TestSampler.tasks) & set(eu.Validator.tasks)))))
     args = parser.parse_args()
-    args.beta = [args.beta_smooth, args.beta_triad]
+    args.beta = [K.variable(args.beta_smooth), K.variable(args.beta_triad)]
     # some fixed arguments in published code
     args.pretrain_size = args.nsteps
     args.trainmod = 'core.algorithm.dynamic_triad'
