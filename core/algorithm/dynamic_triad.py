@@ -167,9 +167,9 @@ class Model(Sampler, TrainFlow, WithData, Validator):
                                K.mean(triag_float[:, 0]) * self.flowargs['beta'][1],
                                K.mean(iprod) * self.flowargs['beta'][1],
                                K.mean(logprob) * self.flowargs['beta'][1]])
-            return lf, pf, [embedding, theta], {'debug': debug}
+            return lf, pf, [embedding, theta], {'loss':loss, 'inputs':[data, weight, triag_int, triag_float], 'debug': debug}
         else:
-            return lf, pf, [embedding, theta], {}
+            return lf, pf, [embedding, theta], {'loss':loss, 'inputs':[data, weight, triag_int, triag_float]}
 
     def make_online(self):
         embedding = K.variable(np.random.uniform(0, 1, (self.dataset.nsize, self.flowargs['embdim'])))
