@@ -121,11 +121,9 @@ def main():
         start_time = time.time()
         scores = []
         
-        _ = tm.pretrain
-        
-        init = tf.global_variables_initializer()
         sess = tf.Session()
-        sess.run(init)
+        loss = tm.pretrain['cache']['loss']
+        inputs_placeholder = tm.pretrain['cache']['inputs']
         
         for i in range(args.niters):
             tm.pretrain_begin_iteration()
@@ -133,6 +131,7 @@ def main():
             epoch_loss = 0
             for batidx, bat in enumerate(tm.batches(args.batchsize)):
                 inputs = tm.make_pretrain_input(bat)
+                sess.run(tf.global_variables_initializer())
                 l = tm.pretrain['lossfunc'](inputs)
                 if isinstance(l, (list, tuple)):
                     l = l[0]
