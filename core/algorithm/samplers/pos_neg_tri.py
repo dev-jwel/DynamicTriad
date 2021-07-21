@@ -108,7 +108,7 @@ class Sampler(pos_neg.Sampler, WithData):
     # batch: (pos, weight, neg, triadint, triadfloat)
     def make_pretrain_input(self, batch):
         input = pos_neg.Sampler.make_pretrain_input(self, batch)
-        return input + list(batch[3:])
+        return list(input) + [np.array(batch[3]), np.array(batch[4])]
 
     # for parallel uncached sampling
     @staticmethod
