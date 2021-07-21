@@ -16,6 +16,7 @@ from core.algorithm.embutils import WithData
 import core.gconfig as gconf
 from core import utils
 from collections import defaultdict
+import numpy as np
 
 
 class Sampler(pos_neg.Sampler, WithData):
