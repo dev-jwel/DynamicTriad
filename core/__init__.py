@@ -87,7 +87,7 @@ def main():
         for i in range(len(data)):
             assert len(vertices) == len(data[i]), (len(vertices), len(data[i]))
             fn = "{}/{}.out".format(outdir, i)
-            fh = open(fn, 'w')
+            fh = open(fn, 'wb')
             for j in range(len(vertices)):
                 print("{} {}".format(vertices[j], ' '.join(["{:.3f}".format(d) for d in data[i][j]])), file=fh)
             fh.close()
