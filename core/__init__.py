@@ -161,7 +161,7 @@ def main():
                 print(", validation score {:.3f}".format(val_score))
             else:
                 max_idx, max_val = i, epoch_loss
-                # maxmodel is not saved here in order to save time
+                maxmodel = tm.save_model()
                 print("")
 
             # checkpoint disabled
