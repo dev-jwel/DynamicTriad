@@ -123,6 +123,8 @@ def main():
         
         sess = tf.Session()
         loss = tm.pretrain['cache']['loss']
+        opt = tf.train.AdagradOptimizer(learning_rate=args.lr)
+        minimize = opt.minimize(loss, var_list=tm.pretrain['vars'])
         inputs_placeholder = tm.pretrain['cache']['inputs']
         sess.run(tf.global_variables_initializer())
         
@@ -132,7 +134,7 @@ def main():
             epoch_loss = 0
             for batidx, bat in enumerate(tm.batches(args.batchsize)):
                 inputs = tm.make_pretrain_input(bat)
-                l = sess.run(loss, feed_dict={
+                _, l = sess.run([minimize, loss], feed_dict={
                     inputs_placeholder[0]:inputs[0],
                     inputs_placeholder[1]:inputs[1],
                     inputs_placeholder[2]:inputs[2],
