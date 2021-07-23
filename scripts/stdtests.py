@@ -238,9 +238,9 @@ if __name__ == '__main__':
 
     def load_or_update_cache(ds, cacheprefix):
         if isfile(cacheprefix + '.cache.args'):
-            args = cPickle.load(open(cacheprefix + '.cache.args', 'r'))
+            args = cPickle.load(open(cacheprefix + '.cache.args', 'rb'))
             try:
-                ds.load_cache(args, lambda: cPickle.load(open(cacheprefix + '.cache', 'r')))
+                ds.load_cache(args, lambda: cPickle.load(open(cacheprefix + '.cache', 'rb')))
                 print("Data loaded from cache file {}".format(cacheprefix + '.cache'))
                 return
             except (ValueError, EOFError) as e:
@@ -249,8 +249,8 @@ if __name__ == '__main__':
         # update cache when load failed
         print("updating cache for prefix {}".format(cacheprefix))
         ar, args = ds.cache()
-        cPickle.dump(args, open(cacheprefix + '.cache.args', 'w'))
-        cPickle.dump(ar, open(cacheprefix + '.cache', 'w'))
+        cPickle.dump(args, open(cacheprefix + '.cache.args', 'wb'))
+        cPickle.dump(ar, open(cacheprefix + '.cache', 'wb'))
         print("cache file {} updated".format(cacheprefix))
 
 
