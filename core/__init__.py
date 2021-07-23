@@ -169,7 +169,7 @@ def main():
             #         maxmodel = lastmodel
             #
             #     tm.restore_model(maxmodel)  # restore parameters while preserving other info
-            #     cPickle.dump([tm.archive(), dsargs, lastmodel], open(args.outdir, 'w'))
+            #     cPickle.dump([tm.archive(), dsargs, lastmodel], open(args.outdir, 'wb'))
             #     tm.restore_model(lastmodel)
 
             if args.validation != 'none':
