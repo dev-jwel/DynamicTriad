@@ -39,7 +39,7 @@ def main():
     parser.add_argument('--validation', type=str, default='link_reconstruction',
                         help=', '.join(list(sorted(set(du.TestSampler.tasks) & set(eu.Validator.tasks)))))
     args = parser.parse_args()
-    args.beta = [K.variable(args.beta_smooth), K.variable(args.beta_triad)]
+    args.beta = [args.beta_smooth, args.beta_triad]
     # some fixed arguments in published code
     args.pretrain_size = args.nsteps
     args.trainmod = 'core.algorithm.dynamic_triad'
