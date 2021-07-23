@@ -153,7 +153,7 @@ class StdTests(object):
             if scale is None:
                 curnegidx = negidx
             else:
-                curnegidx = random.sample(negidx, scale * len(posidx))
+                curnegidx = random.sample(list(negidx), scale * len(posidx))
             cursamp = np.concatenate((samp[posidx], samp[curnegidx]), axis=0)
             curlb = np.concatenate((lbs[posidx], lbs[curnegidx]), axis=0)
             # predict current
