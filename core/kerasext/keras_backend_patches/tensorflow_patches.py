@@ -1,4 +1,5 @@
 import tensorflow.compat.v1 as tf
+tf.disable_eager_execution()
 
 def gather_nd(param, indices):
     return tf.gather_nd(param, indices)
