@@ -28,7 +28,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
     def __init__(self, ds, pretrain_size=10, embdim=16, beta=None,
                  lr=0.1, batchsize=None, sampling_args=None):
         if beta is None:
-            beta = [K.variable(0.1), K.variable(0.1)]
+            beta = [0.1, 0.1]
         if sampling_args is None:
             sampling_args = {}
 
@@ -157,10 +157,11 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         #cstr = {embedding: constraints.get({'class_name': 'maxnorm', 'config': {'max_value': 1, 'axis': 2}}),
         #        theta: constraints.get({'class_name': 'unitnorm', 'config': {'axis': 0}})}
         #upd = opt.get_updates([embedding, theta], cstr, loss)
-        upd = opt.get_updates(loss, [embedding, theta])
-        lf = K.function([data, weight, triag_int, triag_float], [loss], updates=upd)
-        pf = K.function([pred_data], [pred])
-        
+        #upd = opt.get_updates(loss, [embedding, theta])
+        #lf = K.function([data, weight, triag_int, triag_float], [loss])
+        #pf = K.function([pred_data], [pred])
+        lf , pf = None, None
+
         if gconf.debug:
             debug = K.function([data, weight, triag_int, triag_float],
                                [lprox, lsmooth * self.flowargs['beta'][0], ltriag * self.flowargs['beta'][1],
