@@ -20,7 +20,7 @@ class Dataset(DatasetBase):
 
     def __init__(self, datafn, localyear=None, nsteps=None, stepsize=None, stepstride=None, offset=0, dataname=None):
         self.datafn = datafn
-        self.__data = cPickle.load(open(self.datafn, 'rb'))
+        self.__data = cPickle.load(open(self.datafn, 'rb'), encoding="latin1")
         
         nonecnt = sum([int(v is None) for v in (localyear, nsteps, stepsize, stepstride)])
         if nonecnt == 4:
