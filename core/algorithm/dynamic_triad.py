@@ -75,8 +75,13 @@ class Model(Sampler, TrainFlow, WithData, Validator):
     # the current implementation of x function is (j - i) + (k - i)
     def make_pretrain(self):
         embedding = K.variable(
-            np.random.uniform(0, 1, (self.pretrain_size, self.dataset.nsize, self.flowargs['embdim'])))
-        theta = K.variable(np.random.uniform(0, 1, (self.flowargs['embdim'] + 1, )))
+            np.random.uniform(0, 1, (self.pretrain_size, self.dataset.nsize, self.flowargs['embdim'])),
+            constraint=constraints.get({'class_name': 'maxnorm', 'config': {'max_value': 1, 'axis': 2}})
+        )
+        theta = K.variable(
+            np.random.uniform(0, 1, (self.flowargs['embdim'] + 1, )),
+            constraint=constraints.get({'class_name': 'unitnorm', 'config': {'axis': 0}})
+        )
         data = K.placeholder(ndim=2, dtype='int32')  # (batchsize, 5), [k, from_pos, to_pos, from_neg, to_neg]
         weight = K.placeholder(ndim=1, dtype='float32')  # (batchsize, )
         triag_int = K.placeholder(ndim=2, dtype='int32')  # (batchsize, 4), [k, from, to1, to2]
