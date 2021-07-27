@@ -138,8 +138,7 @@ def main():
                     inputs_placeholder[0]:inputs[0],
                     inputs_placeholder[1]:inputs[1],
                     inputs_placeholder[2]:inputs[2],
-                    inputs_placeholder[3]:inputs[3],
-                    inputs_placeholder[4]:inputs[4]
+                    inputs_placeholder[3]:inputs[3]
                 })
                 if isinstance(l, (list, tuple)):
                     l = l[0]
